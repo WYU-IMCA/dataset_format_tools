@@ -5,4 +5,4 @@ collect the dataset_format_tool
 ```bash
 pip install -r requirements.txt
 ```
-
+##labelme2yolo已添加自动删除不合法标签
