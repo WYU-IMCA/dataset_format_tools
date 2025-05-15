@@ -11,6 +11,8 @@ from tqdm import tqdm
 from labelme import utils
 from sklearn.model_selection import train_test_split
 
+# 这里的 keypoint_dict 中的值，表示关键点的顺序
+# 例如：keypoint_dict = {'1':1,'2':2,'3':3,'4':4,'R':5}，表示关键点的顺序为 1,2,3,4,R
 keypoint_dict = {
                 '1':1,
                 '2':2,
@@ -19,11 +21,15 @@ keypoint_dict = {
                 'R':5
             }
 
+# 这里的 classname_to_id 中的值，表示类别的 id
+# 例如：classname_to_id = {"red_leaf": 1,"blue_leaf":2}，表示类别 red_leaf 的 id 为 1，blue_leaf 的 id 为 2
+classname_to_id={"red_leaf": 1,"blue_leaf":2}
+
 # 在官方的 labelme2coco.py 的基础上，增加了对关键点排序的支持
 # 使用方法：python labelme2coco.py --input <labelme_json_path> --output <coco_json_path> --join_num <join_num> --ratio <train_test_split_ratio>
 # 其中，join_num 是关键点的个数，ratio 是训练集和验证集的划分比例
 # 例如：python labelme2coco.py --input G:\X-AnyLabeling\test --output G:\X-AnyLabeling\test\coco --join_num 5 --ratio 0.12
-# 修改keypoint_dict 中的值，来指定关键点的顺序
+
 
 
 class Labelme2coco_keypoints():
@@ -37,7 +43,7 @@ class Labelme2coco_keypoints():
 
         """
 
-        self.classname_to_id = {"red_leaf": 1,"blue_leaf":2}
+        self.classname_to_id = classname_to_id
         self.images = []
         self.annotations = []
         self.categories = []
@@ -222,7 +228,7 @@ class Labelme2coco_keypoints():
             self._annotation(bboxes_list, keypoints_list, json_path)
 
         keypoints = {}
-        keypoints['info'] = {'description': 'Lableme Dataset', 'version': 1.0, 'year': 2021}
+        keypoints['info'] = {'description': 'Lableme Dataset', 'version': 1.0, 'year': 2025}
         keypoints['license'] = ['BUAA']
         keypoints['images'] = self.images
         keypoints['annotations'] = self.annotations
