@@ -4,13 +4,13 @@ import json
 import shutil
 from sklearn.model_selection import train_test_split
 
+
 # 是否将关键点可见性信息写入标注
 keypoint_is_visual = False
 # 类别映射（YOLO格式从0开始）
-bbox_class = {'red_leaf': 0, 'blue_leaf': 1}
+bbox_class = {'Ured': 0, 'Ublue': 1}
 # 关键点类别顺序
-keypoint_class = ['1', '2', '3', '4', 'R']
-
+keypoint_class = ['top','right','bottom','left','R']
 
 def process_single_json(json_file, save_label_dir, save_image_dir):
     """处理单个Labelme JSON文件并保存YOLO格式"""
@@ -83,9 +83,11 @@ def process_single_json(json_file, save_label_dir, save_image_dir):
 
 
 if __name__ == '__main__':
+
     # 数据集根目录配置
-    dataset_root = r"G:\yolov8\datasets\labelme"
-    labelme_dir = os.path.join(dataset_root, "annotations")
+    dataset_root = r"G:\yolov8\datasets\rune_all"
+    #标签文件夹
+    labelme_dir = os.path.join(dataset_root, "json")
 
     # 创建输出目录结构
     for folder in ['images/train', 'images/val', 'labels/train', 'labels/val']:
@@ -112,6 +114,7 @@ if __name__ == '__main__':
                                 os.path.join(dataset_root, "images/val"))
         except Exception as e:
             print(f"处理失败 {json_file}: {str(e)}")
+
 
     print("数据集转换完成！")
     print(f"训练集样本数: {len(train_files)}")
